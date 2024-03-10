@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import VideoCard from '../components/VideoCard';
 import axios from 'axios';
+import { search } from '../api/youtube';
+import FakeYoutube from '../api/localYoutube';
 
 export default function Videos() {
   const { keyword } = useParams();
@@ -10,17 +12,22 @@ export default function Videos() {
     isLoading,
     error,
     data: videos,
-  } = useQuery({queryKey: ['videos', keyword], queryFn: async() => {
-    // using Axios
-    return axios.get(`/videos/${keyword ? 'search' : 'popular'}.json`)
-        .then((res) => res.data.items);
+  } = useQuery({queryKey: ['videos', keyword], queryFn: () => {
+    const youtube = new FakeYoutube();
+    return youtube.search(keyword);
+  }
+  // {
+    // using Axios -> move to "api" folder
+    // return axios.get(`/videos/${keyword ? 'search' : 'popular'}.json`)
+    //     .then((res) => res.data.items);
 
 
     // Using Fetch!!
     // return fetch(`/videos/${keyword ? 'search' : 'popular'}.json`)
     //     .then((res) => res.json())
     //     .then((data) => data.items);
-  }});
+  // }
+  });
 
 
   return (
