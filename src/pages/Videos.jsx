@@ -5,17 +5,16 @@ import VideoCard from '../components/VideoCard';
 import axios from 'axios';
 import Youtube, { search } from '../api/youtube';
 import FakeYoutube from '../api/localYoutube';
+import { useYoutubeApi } from '../context/YoutubeApiContext';
 
 export default function Videos() {
   const { keyword } = useParams();
+  const { youtube } = useYoutubeApi();
   const {
     isLoading,
     error,
     data: videos,
-  } = useQuery({queryKey: ['videos', keyword], queryFn: () => {
-    const youtube = new FakeYoutube();
-    return youtube.search(keyword);
-  }
+  } = useQuery({queryKey: ['videos', keyword], queryFn: () => (youtube.search(keyword))}
   // {
     // using Axios -> move to "api" folder
     // return axios.get(`/videos/${keyword ? 'search' : 'popular'}.json`)
@@ -27,7 +26,7 @@ export default function Videos() {
     //     .then((res) => res.json())
     //     .then((data) => data.items);
   // }
-  });
+  );
 
 
   return (
