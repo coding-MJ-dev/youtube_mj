@@ -11,8 +11,7 @@ export default function Videos() {
     isLoading,
     error,
     data: videos,
-  } = useQuery({queryKey: ['videos', keyword], queryFn: () => (youtube.search(keyword))},
-  {staleTime: 1000 * 60 * 1}
+  } = useQuery({queryKey: ['videos', keyword], queryFn: () => (youtube.search(keyword))}
   );
 
 
