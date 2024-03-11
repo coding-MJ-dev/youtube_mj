@@ -7,7 +7,7 @@ import VideoCard from './VideoCard';
 export default function RelatedVideos({channelId}) {
   const { youtube } = useYoutubeApi();
   const { data: videos } = useQuery({queryKey: ['playlist', channelId], queryFn: () =>
-    youtube.searchByChannelId(channelId)}
+    youtube.searchByChannelId(channelId)}, {staleTime: 1000 * 60 * 5}
   );
 
   return (
