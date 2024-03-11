@@ -14,7 +14,7 @@ export default function VideoDetail() {
       <article className='basis-4/6 '>
         <iframe id="player" type="text/html" width="100%" height="640"
           src={`http://www.youtube.com/embed/${video.id}`}
-          frameborder="0" />
+          frameborder="0" title={title} />
         <div className='p-8'>
           <h2 className='text-xl font-bold'>{title}</h2>
           <ChannelInfo id={channelId} name={channelTitle} />
