@@ -20,6 +20,26 @@ export default class Youtube{
       .then((res) => res.data.items[1].snippet.thumbnails.default.url);
   }
 
+  async relatedVideos(channelId) {
+    return this.apiClient.playlist({
+      params: {
+      part: "snippet",
+      maxResults: 25,
+      type: "video",
+      channelId,
+      },
+      })
+      .then((res) => res.data.item);
+  }
+
+  async searchByChannelId(channelId) {
+    return this.apiClient
+    .playlist({
+      params: {part: 'snippet', channelId, maxResults: 25, order: 'date', type: 'video'},
+    })
+    .then((res) => res.data.items);
+    }
+
   async #searchByKeyword(keyword) {
     return this.apiClient.search(
       {params:{

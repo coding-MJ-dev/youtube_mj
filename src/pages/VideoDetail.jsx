@@ -22,7 +22,7 @@ export default function VideoDetail() {
         </div>
       </article>
       <section>
-        <RelatedVideos id={video.id} />
+        <RelatedVideos channelId={channelId} />
       </section>
     </section>
   );
