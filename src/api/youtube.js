@@ -14,6 +14,12 @@ export default class Youtube{
 
   }
 
+  async channelImageURL(id) {
+    return this.apiClient
+      .channels({ params: { part: 'snippet', id } })
+      .then((res) => res.data.items[1].snippet.thumbnails.default.url);
+  }
+
   async #searchByKeyword(keyword) {
     return this.apiClient.search(
       {params:{
